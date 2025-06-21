@@ -20,8 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@shopify/app-bridge-react": "^3.7.8",
-    "@shopify/app-bridge-utils": "^3.7.8",
+    "@shopify/app-bridge-react": "^3.7.2",
     "@shopify/polaris": "^11.26.0",
     "@shopify/shopify-api": "^7.7.0",
     "react": "^18.2.0",
