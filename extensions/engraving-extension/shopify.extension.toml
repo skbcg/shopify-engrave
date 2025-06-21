@@ -1,0 +1,52 @@
+# Learn more about configuring your extension at:
+# https://shopify.dev/docs/apps/tools/cli/configuration#shopify-extension-toml
+
+# Version of the configuration (mandatory)
+api_version = "2024-01"
+
+# Type of the extension (mandatory)
+extension_points = [
+  "Checkout::Dynamic::Render"
+]
+
+# Human-readable name of the extension (mandatory)
+name = "Custom Engraving"
+
+type = "checkout_ui_extension"
+
+# The extension's entry point (mandatory)
+# This should point to the compiled JavaScript/TypeScript file that will be loaded when the extension runs
+entry_points = [
+  { "target": "Checkout::Dynamic::Render", "module": "./dist/Checkout.js" }
+]
+
+# Capabilities the extension needs (optional)
+capabilities = {
+  network_access = false,
+  block_progress = false,
+  api_access = true,
+}
+
+# Extension settings (optional)
+[settings]
+  [settings.fields]
+  [settings.fields.engraving_price]
+  name = "engraving_price"
+  description = "Price to charge for engraving (in USD)"
+  type = "number"
+  required = true
+  default = 10.00
+
+  [settings.fields.max_characters]
+  name = "max_characters"
+  description = "Maximum number of characters allowed for engraving"
+  type = "number"
+  required = true
+  default = 50
+
+  [settings.fields.enabled]
+  name = "enabled"
+  description = "Enable custom engraving"
+  type = "boolean"
+  required = true
+  default = true
