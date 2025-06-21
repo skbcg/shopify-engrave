@@ -1,0 +1,113 @@
+/* Main app container */
+#app {
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #212b36;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Card styles */
+.Polaris-Card {
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.Polaris-Card__Section {
+  padding: 20px;
+}
+
+.Polaris-Card__Section + .Polaris-Card__Section {
+  border-top: 1px solid #dfe3e8;
+}
+
+/* Form layout */
+.Polaris-FormLayout {
+  margin: 0;
+}
+
+.Polaris-FormLayout__Item {
+  margin-bottom: 16px;
+}
+
+/* Heading styles */
+.Polaris-Heading {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 0 8px 0;
+}
+
+/* Text styles */
+p {
+  margin: 0 0 16px 0;
+  font-size: 15px;
+  line-height: 20px;
+  color: #637381;
+}
+
+/* Checkbox styles */
+.Polaris-Checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Polaris-Checkbox__Input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.Polaris-Checkbox__Backdrop {
+  position: relative;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  background: #f9fafb;
+  border: 2px solid #c4cdd5;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.Polaris-Checkbox__Input:checked + .Polaris-Checkbox__Backdrop {
+  background: #5c6ac4;
+  border-color: #5c6ac4;
+}
+
+.Polaris-Checkbox__Icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: white;
+}
+
+.Polaris-Checkbox__Input:checked ~ .Polaris-Checkbox__Icon {
+  opacity: 1;
+}
+
+.Polaris-Checkbox__Label {
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #app {
+    padding: 10px;
+  }
+  
+  .Polaris-Card__Section {
+    padding: 15px;
+  }
+}
