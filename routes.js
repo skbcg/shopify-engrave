@@ -22,11 +22,21 @@ const verifyRequest = (req, res, next) => {
 /**
  * Set up all routes for the application
  * @param {express.Application} app - The Express application
+ * @param {Object} sessionStorage - The session storage instance
  */
-const setupRoutes = (app) => {
-  // Parse JSON bodies
-  app.use(express.json({ limit: '50mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+const setupRoutes = (app, sessionStorage) => {
+  // Session handling middleware
+  app.use((req, res, next) => {
+    const shop = req.query.shop;
+    if (shop) {
+      req.session = {
+        shop: shop.replace(/\.myshopify\.com$/, ''),
+        isOnline: true,
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN
+      };
+    }
+    next();
+  });
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {
