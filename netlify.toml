@@ -36,10 +36,15 @@
   directory = "netlify/functions"
   # Node.js version for Netlify Functions
   node_bundler = "esbuild"
-  # Set the Node.js version for Functions
-  node_bridge = "/.netlify/functions-internal"
   # Increase function timeout to 10 seconds (max allowed)
   timeout = 10
+  
+  # Configure node_bridge for external modules if needed
+  [functions.node_bridge]
+  external_node_modules = [
+    "@shopify/shopify-api",
+    "crypto"
+  ]
 
 # Security headers
 [[headers]]
