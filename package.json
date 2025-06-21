@@ -2,11 +2,13 @@
   "name": "shopify-engraving-app",
   "version": "1.0.0",
   "description": "A Shopify app that adds custom engraving functionality to products",
-  "main": "server.js",
+  "main": "public/js/app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "setup": "node scripts/setup.js",
+    "start": "npm run build",
+    "build": "npm run copy-assets && npm run copy-html",
+    "copy-assets": "mkdir -p public/js public/css && cp -r src/js/* public/js/ && cp -r src/css/* public/css/ || true",
+    "copy-html": "cp -n src/index.html public/ || true",
+    "dev": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,19 +20,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@shopify/shopify-api": "^9.0.2",
-    "@shopify/shopify-app-express": "^4.0.2",
-    "@shopify/shopify-app-session-storage-sqlite": "^2.0.3",
-    "better-sqlite3": "^9.4.3",
-    "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^4.18.2",
-    "next": "^15.3.4",
-    "sqlite3": "^5.1.7"
+    "@shopify/app-bridge-react": "^3.7.9",
+    "@shopify/app-bridge-utils": "^3.7.9",
+    "@shopify/polaris": "^11.26.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "netlify-cli": "^15.0.0",
+    "esbuild": "^0.19.2",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
