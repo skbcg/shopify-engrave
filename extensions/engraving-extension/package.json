@@ -1,6 +1,7 @@
 {
-  "name": "shopify-engraving-extension",
+  "name": "engraving-extension",
   "version": "1.0.0",
+  "private": true,
   "description": "Custom engraving extension for Shopify checkout",
   "main": "dist/Checkout.js",
   "scripts": {

@@ -1,23 +1,52 @@
-# Learn more about configuring your extension at:
-# https://shopify.dev/docs/apps/tools/cli/configuration#shopify-extension-toml
-
-# Version of the configuration (mandatory)
+# Version of the configuration
 api_version = "2024-01"
 
-# Type of the extension (mandatory)
+# Type of the extension
 extension_points = [
-  "Checkout::Dynamic::Render"
+  "ThemeAppExtension"
 ]
 
-# Human-readable name of the extension (mandatory)
+# Human-readable name of the extension
 name = "Custom Engraving"
 
-type = "checkout_ui_extension"
+type = "theme_app_extension"
 
-# The extension's entry point (mandatory)
-# This should point to the compiled JavaScript/TypeScript file that will be loaded when the extension runs
-entry_points = [
-  { "target": "Checkout::Dynamic::Render", "module": "./dist/Checkout.js" }
+# Extension settings
+[settings.definition]
+name = "Engraving Settings"
+target = "apps"
+
+[[settings.definitions]]
+name = "engraving_enabled"
+type = "boolean"
+label = "Enable Engraving"
+help_text = "Enable or disable the engraving feature"
+
+[[settings.definitions]]
+name = "engraving_price"
+type = "number"
+label = "Engraving Price"
+help_text = "Additional price for engraving"
+validations = [
+  { name = "min", value = 0 },
+  { name = "max", value = 1000 }
+]
+
+[[settings.definitions]]
+name = "engraving_label"
+type = "string"
+label = "Engraving Label"
+help_text = "Label for the engraving option"
+default = "Add Custom Engraving"
+
+# The extension's entry point
+[[extension_points]]
+target = "theme.cart-drawer.drawer"
+module = "./dist/extension.js"
+
+[[extension_points]]
+target = "theme.main-product"
+module = "./dist/extension.js"
 ]
 
 # Capabilities the extension needs (optional)
