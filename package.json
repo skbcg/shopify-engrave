@@ -1,43 +1,34 @@
 {
-  "name": "shopify-engraving-app",
-  "version": "1.0.0",
-  "description": "A Shopify app that adds custom engraving functionality to products",
-  "main": "public/js/app.js",
-  "scripts": {
-    "start": "npm run build",
-    "build": "npm run copy-assets && npm run copy-html",
-    "copy-assets": "mkdir -p public/js public/css && cp -r src/js/* public/js/ && cp -r src/css/* public/css/ || true",
-    "copy-html": "cp -n src/index.html public/ || true",
-    "dev": "netlify dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "shopify",
-    "app",
-    "engraving",
-    "customization"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@shopify/app-bridge-react": "^3.7.2",
-    "@shopify/polaris": "^11.26.0",
-    "@shopify/shopify-api": "^7.7.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "dotenv": "^16.3.1"
-  },
-  "devDependencies": {
-    "netlify-cli": "^15.0.0",
-    "esbuild": "^0.19.2",
-    "@babel/core": "^7.23.0",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-react": "^7.22.15"
-  },
-  "browserslist": [
-    "defaults"
-  ],
-  "engines": {
-    "node": ">=16.0.0"
-  }
+    "name": "shopify-engraving-app",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "shopify": "shopify",
+        "generate": "shopify app generate",
+        "deploy": "shopify app deploy"
+    },
+    "dependencies": {
+        "@shopify/app-bridge-react": "4.1.10",
+        "@shopify/polaris": "10.44.0",
+        "@shopify/shopify-api": "7.7.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@shopify/cli": "^3.81.2",
+        "@shopify/theme": "^0.5.2",
+        "@types/react": "18.2.14",
+        "@types/react-dom": "18.2.7",
+        "@vitejs/plugin-react": "4.0.4",
+        "autoprefixer": "10.4.14",
+        "postcss": "^8.5.6",
+        "tailwindcss": "3.3.2",
+        "vite": "^4.5.14"
+    }
 }

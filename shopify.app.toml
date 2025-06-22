@@ -1,0 +1,47 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "Engraving App"
+client_id = ""
+application_url = "https://your-netlify-url.netlify.app"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products,read_products,write_script_tags,write_metaobjects"
+
+[auth]
+redirect_urls = [
+  "https://your-netlify-url.netlify.app/auth/callback",
+  "https://your-netlify-url.netlify.app/auth/shopify/callback",
+  "https://your-netlify-url.netlify.app/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-01"
+
+[pos]
+embedded = false
+
+[build]
+  # Directory path to the web app's source files, relative to the configuration file.
+  path = "web"
+  # The target development URL of the web app's frontend.
+  target = "ES2022"
+  # The command to build the web app for production.
+  command = "npm run build"
+  # The command to start the web app in development.
+  dev_command = "npm run dev -- --port $FRONTEND_PORT"
+
+[web]
+app_proxy = { url = "/apps/engraving-app" }
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products,read_products,write_script_tags,write_metaobjects"
+
+[auth]
+redirect_urls = [
+  "https://your-netlify-url.netlify.app/auth/callback",
+  "https://your-netlify-url.netlify.app/auth/shopify/callback",
+  "https://your-netlify-url.netlify.app/api/auth/callback"
+]

@@ -1,0 +1,127 @@
+{% comment %}
+  Required params:
+  - product: The product object
+  - block: The block object containing settings
+{% endcomment %}
+
+{%- assign engraving_enabled = false -%}
+{%- assign engraving_price = 1000 -%} {# Price in cents #}
+
+{% comment %} Check if engraving is enabled for this product {% endcomment %}
+{%- if product.metafields.engraving.enabled == true -%}
+  {%- assign engraving_enabled = true -%}
+  {%- if product.metafields.engraving.price -%}
+    {%- assign engraving_price = product.metafields.engraving.price -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if engraving_enabled -%}
+  <div class="engraving-option" data-engraving-price="{{ engraving_price | money_without_currency }}">
+    <div class="engraving-toggle">
+      <input 
+        type="checkbox" 
+        id="engraving-toggle-{{ block.id }}" 
+        name="properties[Engraving]"
+        value="Yes"
+        data-engraving-toggle
+      >
+      <label for="engraving-toggle-{{ block.id }}">
+        {{ block.settings.checkbox_label | default: 'Add Custom Engraving' }}
+        <span class="engraving-price">+{{ engraving_price | money }}</span>
+      </label>
+    </div>
+
+    <div class="engraving-details" style="display: none;">
+      <label for="engraving-text-{{ block.id }}">
+        {{ block.settings.text_label | default: 'Engraving Text' }}
+      </label>
+      <textarea 
+        id="engraving-text-{{ block.id }}" 
+        name="properties[Engraving Text]" 
+        rows="3" 
+        maxlength="100"
+        placeholder="{{ block.settings.placeholder | default: 'Enter your engraving text here (max 100 characters)' }}"
+        data-engraving-text
+      ></textarea>
+      <p class="character-count">
+        <span class="current">0</span>/100 characters
+      </p>
+    </div>
+  </div>
+
+  <style>
+    .engraving-option {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border: 1px solid #e1e1e1;
+      border-radius: 4px;
+    }
+    .engraving-toggle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .engraving-toggle input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+    .engraving-price {
+      margin-left: 0.5rem;
+      color: #d82c2c;
+      font-weight: bold;
+    }
+    .engraving-details {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #f3f3f3;
+    }
+    .engraving-details label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .engraving-details textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      resize: vertical;
+      min-height: 80px;
+    }
+    .character-count {
+      margin: 0.25rem 0 0;
+      color: #6d6d6d;
+      font-size: 0.875rem;
+      text-align: right;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggle = document.querySelector('[data-engraving-toggle]');
+      const details = document.querySelector('.engraving-details');
+      const textarea = document.querySelector('[data-engraving-text]');
+      const charCount = document.querySelector('.character-count .current');
+      
+      if (toggle && details) {
+        toggle.addEventListener('change', function() {
+          details.style.display = this.checked ? 'block' : 'none';
+          if (!this.checked) textarea.value = '';
+          updateEngravingPrice();
+        });
+      }
+
+      if (textarea && charCount) {
+        textarea.addEventListener('input', function() {
+          charCount.textContent = this.value.length;
+        });
+      }
+
+      function updateEngravingPrice() {
+        // This function will be implemented in the theme's main JavaScript
+        if (window.updateEngravingPrice) {
+          window.updateEngravingPrice();
+        }
+      }
+    });
+  </script>
+{%- endif -%}

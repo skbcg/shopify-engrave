@@ -1,0 +1,102 @@
+/* Base styles for the engraving block */
+.engraving-option {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--engraving-border-color, #e1e1e1);
+  border-radius: 4px;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.engraving-option:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.engraving-toggle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.engraving-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.engraving-toggle label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.engraving-price {
+  margin-left: 8px;
+  color: var(--engraving-accent-color, #d82c2c);
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+.engraving-details {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--engraving-border-color, #f3f3f3);
+  animation: fadeIn 0.3s ease;
+}
+
+.engraving-details label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.engraving-details textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--engraving-border-color, #ddd);
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  font-size: 0.95em;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.engraving-details textarea:focus {
+  outline: none;
+  border-color: var(--engraving-accent-color, #d82c2c);
+  box-shadow: 0 0 0 1px var(--engraving-accent-color, #d82c2c);
+  background-color: #fff;
+}
+
+.character-count {
+  margin: 0.5rem 0 0;
+  color: #6d6d6d;
+  font-size: 0.8em;
+  text-align: right;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 767px) {
+  .engraving-option {
+    padding: 1.25rem;
+  }
+  
+  .engraving-details textarea {
+    min-height: 80px;
+  }
+}

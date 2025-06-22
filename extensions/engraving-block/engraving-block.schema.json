@@ -1,0 +1,52 @@
+{
+  "name": "Engraving Block",
+  "target": "section",
+  "stylesheet": "engraving-block.css",
+  "javascript": "engraving-block.js",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Engraving Settings"
+    },
+    {
+      "type": "text",
+      "id": "checkbox_label",
+      "label": "Checkbox Label",
+      "default": "Add Custom Engraving"
+    },
+    {
+      "type": "text",
+      "id": "text_label",
+      "label": "Text Input Label",
+      "default": "Engraving Text"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder Text",
+      "default": "Enter your engraving text here (max 100 characters)"
+    },
+    {
+      "type": "number",
+      "id": "max_length",
+      "label": "Maximum Characters",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#d82c2c"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#e1e1e1"
+    }
+  ]
+}

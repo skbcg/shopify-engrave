@@ -1,100 +1,29 @@
 [build]
-  # Directory to publish (relative to root of your repo)
-  publish = "public"
-  # Build command to build your site
   command = "npm run build"
+  publish = "web/build"
+  functions = "functions"
 
 [build.environment]
-  # Node.js version to use for builds
-  NODE_VERSION = "20"
-  # Required for Shopify App Bridge
-  NPM_FLAGS = "--legacy-peer-deps"
-  # Required for Netlify Functions
-  NODE_OPTIONS = "--max-old-space-size=1024"
+  NODE_VERSION = "16"
+  NPM_VERSION = "8"
 
-# Handle client-side routing - redirect all routes to index.html
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Required for Shopify OAuth
-[[redirects]]
-  from = "/auth/callback"
-  to = "/.netlify/functions/auth"
-  status = 200
-
-# Required for Shopify App Bridge
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-# Netlify Functions configuration
-[functions]
-  # Directory where your Netlify Functions are located
-  directory = "netlify/functions"
-  # Node.js version for Netlify Functions
-  node_bundler = "esbuild"
-  
-  # Configure node_bridge for external modules if needed
-  [functions.node_bridge]
-  external_node_modules = [
-    "@shopify/shopify-api",
-    "crypto"
-  ]
-  
-  # Configure function timeout
-  [functions.timeout]
-  # Increase function timeout to 10 seconds (max allowed)
-  timeout = 10
-
-# Security headers
-[[headers]]
-  # Apply these headers to all routes
-  for = "/*"
-  [headers.values]
-    # Security headers
-    X-Content-Type-Options = "nosniff"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    # Required for Shopify App Bridge
-    Content-Security-Policy = "frame-ancestors https://*.shopify.com https://*.myshopify.com https://admin.shopify.com;"
-    # Required for Shopify App Bridge
-    Access-Control-Allow-Origin = "*"
-    # Allow embedding in Shopify admin
-    X-Frame-Options = "ALLOW-FROM https://admin.shopify.com"
-
-# Development settings (for netlify dev)
 [dev]
-  # Port for the development server
-  port = 8888
-  # Target port for the app
-  targetPort = 3000
-  # Framework detection
   framework = "#custom"
-  # Command to run the development server
   command = "npm run dev"
-  # Directory containing the development server
-  publish = "public"
-  # Environment variables for development
-  [dev.environment]
-    NODE_ENV = "development"
-    NETLIFY_DEV = "true"
-    # Local development URL (update with your local URL)
-    URL = "http://localhost:8888"
+  targetPort = 3000
+  publish = "web"
+  port = 3000
 
-# Context-specific settings (production)
-[context.production]
-  command = "npm run build"
-  [context.production.environment]
-    NODE_ENV = "production"
-    # Production URL (update with your production URL)
-    URL = "https://shopoptions.netlify.app"
-
-# Context-specific settings (branch deploys)
-[context.deploy-preview]
-  [context.deploy-preview.environment]
-    NODE_ENV = "development"
-    # Preview URL (Netlify will set this automatically)
-    URL = "$DEPLOY_PRIME_URL"
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@shopify"]
