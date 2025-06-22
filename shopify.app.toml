@@ -2,7 +2,7 @@
 
 name = "Engraving App"
 client_id = ""
-application_url = "https://your-netlify-url.netlify.app"
+application_url = "https://custom-engraving-app.netlify.app"
 embedded = true
 
 [access_scopes]

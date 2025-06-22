@@ -1,0 +1,50 @@
+{% comment %}
+  Cart Engraving Block
+  This block can be added to cart templates to display engraving information and fees
+{% endcomment %}
+
+<div class="cart-engraving-info">
+  {% for item in cart.items %}
+    {% if item.properties.Engraving == 'Yes' %}
+      <div class="cart-engraving-item">
+        <div class="cart-engraving-product">
+          <strong>{{ item.product.title }}</strong>
+          {% if item.variant.title != 'Default Title' %}
+            - {{ item.variant.title }}
+          {% endif %}
+        </div>
+        <div class="cart-engraving-text">
+          Engraving: {{ item.properties.Engraving_Text }}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+  .cart-engraving-info {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  .cart-engraving-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  .cart-engraving-item:last-child {
+    border-bottom: none;
+  }
+  .cart-engraving-product {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .cart-engraving-text {
+    font-size: 13px;
+    color: #555;
+    font-style: italic;
+  }
+</style>
+
+{% render 'cart-price-rules' %}

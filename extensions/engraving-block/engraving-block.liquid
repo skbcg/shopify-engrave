@@ -5,7 +5,7 @@
 {% endcomment %}
 
 {%- assign engraving_enabled = false -%}
-{%- assign engraving_price = 1000 -%} {# Price in cents #}
+{%- assign engraving_price = block.settings.engraving_price | default: 10 | times: 100 -%} {# Price in cents #}
 
 {% comment %} Check if engraving is enabled for this product {% endcomment %}
 {%- if product.metafields.engraving.enabled == true -%}

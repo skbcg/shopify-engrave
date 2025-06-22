@@ -1,0 +1,78 @@
+{% comment %}
+  Cart Price Rules for Engraving App
+  This snippet handles displaying and calculating engraving fees in the cart
+{% endcomment %}
+
+{% if cart.attributes %}
+  {% assign total_engraving_price = 0 %}
+  {% assign has_engraving_items = false %}
+  
+  {% for item in cart.items %}
+    {% if item.properties.Engraving == 'Yes' and item.properties._Engraving_Price != blank %}
+      {% assign has_engraving_items = true %}
+      {% assign item_engraving_key = 'Engraving_Item_' | append: item.id %}
+      
+      {% if cart.attributes[item_engraving_key] != blank %}
+        {% assign item_engraving_price = cart.attributes[item_engraving_key] | times: 1 %}
+        {% assign total_engraving_price = total_engraving_price | plus: item_engraving_price %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  
+  {% if has_engraving_items and total_engraving_price > 0 %}
+    <div class="cart__engraving-fee">
+      <div class="cart__engraving-fee-label">
+        Engraving Fee
+      </div>
+      <div class="cart__engraving-fee-price">
+        {{ total_engraving_price | money }}
+      </div>
+    </div>
+    
+    <style>
+      .cart__engraving-fee {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-top: 1px solid #e1e1e1;
+      }
+      .cart__engraving-fee-label {
+        font-weight: 500;
+      }
+    </style>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Find the total price element in cart
+        const cartTotalElement = document.querySelector('.cart__total-price') || 
+                                document.querySelector('.cart-subtotal__price') ||
+                                document.querySelector('[data-cart-total]');
+        
+        if (cartTotalElement) {
+          // Get the current total as a number
+          let currentTotal = parseFloat(cartTotalElement.textContent.replace(/[^0-9.]/g, ''));
+          
+          // Add the engraving fee
+          let engravingFee = {{ total_engraving_price | json }};
+          
+          // Update the displayed total
+          // Note: This is a simple approach and may need to be adjusted based on the theme
+          // For a production app, you might want to use Shopify's Cart API instead
+          if (!isNaN(currentTotal) && engravingFee > 0) {
+            let newTotal = currentTotal + engravingFee;
+            cartTotalElement.setAttribute('data-original-total', currentTotal);
+            cartTotalElement.setAttribute('data-engraving-fee', engravingFee);
+            
+            // Format the new total with the same currency format
+            const formatter = new Intl.NumberFormat(document.documentElement.lang || 'en-US', {
+              style: 'currency',
+              currency: {{ cart.currency.iso_code | json }} || 'USD'
+            });
+            
+            cartTotalElement.textContent = formatter.format(newTotal);
+          }
+        }
+      });
+    </script>
+  {% endif %}
+{% endif %}
